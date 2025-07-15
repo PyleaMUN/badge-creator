@@ -141,16 +141,6 @@
             left: 15px;
         }
 
-        /* New Program Logo Styling */
-        .badge-program-logo {
-            width: 70px; /* Same size as main logo */
-            height: 70px; /* Same size as main logo */
-            object-fit: contain;
-            position: absolute;
-            top: 15px;
-            right: 15px; /* Position on the right */
-        }
-
         /* Badge Content Styling - Adjusted padding-top for larger logo */
         .badge-content {
             text-align: center;
@@ -163,9 +153,8 @@
             padding-top: 80px; /* Make more space for the larger logo */
         }
 
-        /* Name Size Reduced by 50% */
         .badge-name {
-            font-size: 1.1em; /* Reduced from 2.2em by 50% */
+            font-size: 2.2em; /* Larger for name */
             font-weight: 700; /* Bold */
             color: #008080; /* Teal */
             margin-bottom: 5px;
@@ -180,24 +169,10 @@
             line-height: 1.1;
         }
 
-        /* Base detail styling for School and Country */
         .badge-detail {
             font-size: 1.1em;
             color: #333; /* Dark gray for details */
             line-height: 1.2;
-        }
-
-        /* Committee line container */
-        .badge-committee-line {
-            font-size: 1.1em; /* Base size for the whole line on screen */
-            color: #333; /* Dark gray */
-            line-height: 1.2;
-        }
-
-        /* Committee value specific styling */
-        .committee-value {
-            font-size: 1.49em; /* Increased by 49% relative to its parent (1.1em * 1.49 = ~1.64em) */
-            font-weight: normal; /* Default on screen */
         }
 
         .badge-detail-label {
@@ -248,11 +223,6 @@
                 border: 2px solid #008080; /* Keep the frame for printing */
                 box-shadow: none; /* No shadow on print */
                 margin: 0; /* Remove any external margins */
-            }
-
-            /* Make committee value bold specifically in print */
-            #print-root .badge-committee-line .committee-value {
-                font-weight: 700 !important; /* Make it bold in print */
             }
         }
     </style>
@@ -453,12 +423,11 @@
             <!-- Live Preview for Delegate 1 -->
             <div id="liveBadgePreview1" class="badge-container">
                 <img src="logo.png" alt="PyleaMUN Logo" class="badge-logo">
-                <img src="PyleaMUN Programme.png" alt="PyleaMUN Programme Logo" class="badge-program-logo">
                 <div class="badge-content">
                     <div class="badge-name">NAME SURNAME</div>
                     <div class="badge-role">ROLE</div>
                     <div class="badge-detail"><span class="badge-detail-label">School:</span> Your School</div>
-                    <div class="badge-committee-line"><span class="badge-detail-label">Committee:</span> <span class="committee-value">Your Committee</span></div>
+                    <div class="badge-detail"><span class="badge-detail-label">Committee:</span> Your Committee</div>
                     <div class="badge-detail"><span class="badge-detail-label">Country:</span> Your Country</div>
                 </div>
                 <div class="badge-footer">PyleaMUN</div>
@@ -467,12 +436,11 @@
             <!-- Live Preview for Delegate 2 -->
             <div id="liveBadgePreview2" class="badge-container">
                 <img src="logo.png" alt="PyleaMUN Logo" class="badge-logo">
-                <img src="PyleaMUN Programme.png" alt="PyleaMUN Programme Logo" class="badge-program-logo">
                 <div class="badge-content">
                     <div class="badge-name">NAME SURNAME</div>
                     <div class="badge-role">ROLE</div>
                     <div class="badge-detail"><span class="badge-detail-label">School:</span> Your School</div>
-                    <div class="badge-committee-line"><span class="badge-detail-label">Committee:</span> <span class="committee-value">Your Committee</span></div>
+                    <div class="badge-detail"><span class="badge-detail-label">Committee:</span> Your Committee</div>
                     <div class="badge-detail"><span class="badge-detail-label">Country:</span> Your Country</div>
                 </div>
                 <div class="badge-footer">PyleaMUN</div>
@@ -481,12 +449,11 @@
             <!-- Live Preview for Delegate 3 -->
             <div id="liveBadgePreview3" class="badge-container">
                 <img src="logo.png" alt="PyleaMUN Logo" class="badge-logo">
-                <img src="PyleaMUN Programme.png" alt="PyleaMUN Programme Logo" class="badge-program-logo">
                 <div class="badge-content">
                     <div class="badge-name">NAME SURNAME</div>
                     <div class="badge-role">ROLE</div>
                     <div class="badge-detail"><span class="badge-detail-label">School:</span> Your School</div>
-                    <div class="badge-committee-line"><span class="badge-detail-label">Committee:</span> <span class="committee-value">Your Committee</span></div>
+                    <div class="badge-detail"><span class="badge-detail-label">Committee:</span> Your Committee</div>
                     <div class="badge-detail"><span class="badge-detail-label">Country:</span> Your Country</div>
                 </div>
                 <div class="badge-footer">PyleaMUN</div>
@@ -495,12 +462,11 @@
             <!-- Live Preview for Delegate 4 -->
             <div id="liveBadgePreview4" class="badge-container">
                 <img src="logo.png" alt="PyleaMUN Logo" class="badge-logo">
-                <img src="PyleaMUN Programme.png" alt="PyleaMUN Programme Logo" class="badge-program-logo">
                 <div class="badge-content">
                     <div class="badge-name">NAME SURNAME</div>
                     <div class="badge-role">ROLE</div>
                     <div class="badge-detail"><span class="badge-detail-label">School:</span> Your School</div>
-                    <div class="badge-committee-line"><span class="badge-detail-label">Committee:</span> <span class="committee-value">Your Committee</span></div>
+                    <div class="badge-detail"><span class="badge-detail-label">Committee:</span> Your Committee</div>
                     <div class="badge-detail"><span class="badge-detail-label">Country:</span> Your Country</div>
                 </div>
                 <div class="badge-footer">PyleaMUN</div>
@@ -556,19 +522,12 @@
             const badgeDiv = document.createElement('div');
             badgeDiv.className = 'badge-container'; // Reuses existing badge styles
 
-            // Logo (left)
+            // Logo
             const logoImg = document.createElement('img');
             logoImg.src = 'logo.png';
             logoImg.alt = 'PyleaMUN Logo';
             logoImg.className = 'badge-logo';
             badgeDiv.appendChild(logoImg);
-
-            // Program Logo (right)
-            const programLogoImg = document.createElement('img');
-            programLogoImg.src = 'PyleaMUN Programme.png'; // New image source
-            programLogoImg.alt = 'PyleaMUN Programme Logo';
-            programLogoImg.className = 'badge-program-logo'; // New class for positioning
-            badgeDiv.appendChild(programLogoImg);
 
             // Content
             const contentDiv = document.createElement('div');
@@ -585,18 +544,17 @@
             contentDiv.appendChild(roleDiv);
 
             const schoolDiv = document.createElement('div');
-            schoolDiv.className = 'badge-detail'; // Use base detail class
+            schoolDiv.className = 'badge-detail';
             schoolDiv.innerHTML = `<span class="badge-detail-label">School:</span> ${data.school || 'Your School'}`;
             contentDiv.appendChild(schoolDiv);
 
             const committeeDiv = document.createElement('div');
-            committeeDiv.className = 'badge-committee-line'; // Use specific committee class for the whole line
-            // Wrap the committee value in its own span for separate styling
-            committeeDiv.innerHTML = `<span class="badge-detail-label">Committee:</span> <span class="committee-value">${data.committee || 'Your Committee'}</span>`;
+            committeeDiv.className = 'badge-detail';
+            committeeDiv.innerHTML = `<span class="badge-detail-label">Committee:</span> ${data.committee || 'Your Committee'}`;
             contentDiv.appendChild(committeeDiv);
 
             const countryDiv = document.createElement('div');
-            countryDiv.className = 'badge-detail'; // Use base detail class
+            countryDiv.className = 'badge-detail';
             countryDiv.innerHTML = `<span class="badge-detail-label">Country:</span> ${data.country || 'Your Country'}`;
             contentDiv.appendChild(countryDiv);
 
@@ -617,6 +575,7 @@
          * @param {object} data - The delegate data to display.
          */
         function updateSinglePreview(previewElement, data) {
+            // Ensure previewElement exists before trying to query its children
             if (!previewElement) {
                 console.error("Preview element not found for updateSinglePreview.");
                 return;
@@ -625,22 +584,21 @@
             // Select elements within the specific previewElement
             const nameEl = previewElement.querySelector('.badge-name');
             const roleEl = previewElement.querySelector('.badge-role');
-            const schoolEl = previewElement.querySelector('.badge-detail:nth-of-type(1)'); // School is the first .badge-detail
-            const committeeLabelEl = previewElement.querySelector('.badge-committee-line .badge-detail-label'); // Committee label
-            const committeeValueEl = previewElement.querySelector('.badge-committee-line .committee-value'); // Committee value
-            const countryEl = previewElement.querySelector('.badge-detail:nth-of-type(2)'); // Country is the second .badge-detail
+            const detailElements = previewElement.querySelectorAll('.badge-content .badge-detail');
 
             if (nameEl) nameEl.textContent = data.name || 'NAME SURNAME';
             if (roleEl) roleEl.textContent = data.role || 'ROLE';
-            if (schoolEl) schoolEl.innerHTML = `<span class="badge-detail-label">School:</span> ${data.school || 'Your School'}`;
-            // Update committee label and value separately
-            if (committeeLabelEl && committeeValueEl) {
-                committeeValueEl.textContent = data.committee || 'Your Committee';
-            } else if (committeeLabelEl) { // Fallback if committee-value span isn't found (shouldn't happen with createBadgeElement)
-                 committeeLabelEl.parentNode.innerHTML = `<span class="badge-detail-label">Committee:</span> <span class="committee-value">${data.committee || 'Your Committee'}</span>`;
+            
+            // Update content based on their order
+            if (detailElements[0]) {
+                detailElements[0].innerHTML = `<span class="badge-detail-label">School:</span> ${data.school || 'Your School'}`;
             }
-
-            if (countryEl) countryEl.innerHTML = `<span class="badge-detail-label">Country:</span> ${data.country || 'Your Country'}`;
+            if (detailElements[1]) {
+                detailElements[1].innerHTML = `<span class="badge-detail-label">Committee:</span> ${data.committee || 'Your Committee'}`;
+            }
+            if (detailElements[2]) {
+                detailElements[2].innerHTML = `<span class="badge-detail-label">Country:</span> ${data.country || 'Your Country'}`;
+            }
         }
 
         /**
@@ -700,7 +658,7 @@
                 role: roleSelect2.value,
                 school: schoolInput2.value,
                 committee: committeeSelect2.value,
-                country: country2.value
+                country: countryInput2.value
             };
             const delegate3Data = {
                 name: nameInput3.value,
@@ -785,11 +743,11 @@
             updateAllLivePreviews(); // Initial update of previews
         });
 
-        // Note about logo.png and PyleaMUN Programme.png:
-        // The image sources are set to "logo.png" and "PyleaMUN Programme.png".
-        // For the badges to display your logos, you need to ensure that
-        // these image files are in the same directory as this HTML file
-        // when you use it locally. If they are not found, the browser will show
+        // Note about logo.png:
+        // The image source is set to "logo.png".
+        // For the badge to display your logo, you need to ensure that
+        // a file named 'logo.png' is in the same directory as this HTML file
+        // when you use it locally. If it's not found, the browser will show
         // its default broken image icon.
     </script>
 </body>
