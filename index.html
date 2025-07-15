@@ -26,7 +26,7 @@
             display: flex;
             flex-direction: column;
             gap: 20px;
-            max-width: 1200px; /* Increased max width for two forms/previews */
+            max-width: 1200px; /* Max width to contain forms and previews */
             width: 100%;
             align-items: center;
         }
@@ -47,9 +47,9 @@
             border-radius: 12px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             width: 100%;
-            max-width: 450px; /* Slightly smaller to fit two side-by-side */
-            flex: 1 1 auto; /* Allow forms to grow and shrink */
-            min-width: 300px; /* Minimum width before wrapping */
+            max-width: 450px; /* Max width for individual forms */
+            flex: 1 1 45%; /* Allow forms to take about half width, wrapping as needed */
+            min-width: 300px; /* Minimum width before stacking */
         }
 
         .input-form h3 {
@@ -321,6 +321,96 @@
                     </div>
                 </form>
             </div>
+
+            <!-- Input Form for Delegate 3 -->
+            <div class="input-form">
+                <h3>Delegate 3 Details</h3>
+                <form id="badgeForm3" class="space-y-4">
+                    <div>
+                        <label for="nameInput3" class="block text-sm font-medium text-gray-700">Name:</label>
+                        <input type="text" id="nameInput3" placeholder="Enter Name" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500" required>
+                    </div>
+                    <div>
+                        <label for="roleSelect3" class="block text-sm font-medium text-gray-700">Role:</label>
+                        <select id="roleSelect3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500" required>
+                            <option value="">Select Role</option>
+                            <option value="Executive">Executive</option>
+                            <option value="Chair">Chair</option>
+                            <option value="Delegate">Delegate</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="schoolInput3" class="block text-sm font-medium text-gray-700">School:</label>
+                        <input type="text" id="schoolInput3" placeholder="Enter School" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500" required>
+                    </div>
+                    <div>
+                        <label for="committeeSelect3" class="block text-sm font-medium text-gray-700">Committee:</label>
+                        <select id="committeeSelect3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500" required>
+                            <option value="">Select Committee</option>
+                            <option value="UNGA">UNGA</option>
+                            <option value="UNEP">UNEP</option>
+                            <option value="UNESCO">UNESCO</option>
+                            <option value="NATO">NATO</option>
+                            <option value="WHO">WHO</option>
+                            <option value="ECOSOC">ECOSOC</option>
+                            <option value="UN WOMEN">UN WOMEN</option>
+                            <option value="Human Rights Council">Human Rights Council</option>
+                            <option value="Security Council">Security Council</option>
+                            <option value="Historical Crisis">Historical Crisis</option>
+                            <option value="Not Applicable">Not Applicable</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="countryInput3" class="block text-sm font-medium text-gray-700">Country:</label>
+                        <input type="text" id="countryInput3" placeholder="Enter Country" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500" required>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Input Form for Delegate 4 -->
+            <div class="input-form">
+                <h3>Delegate 4 Details</h3>
+                <form id="badgeForm4" class="space-y-4">
+                    <div>
+                        <label for="nameInput4" class="block text-sm font-medium text-gray-700">Name:</label>
+                        <input type="text" id="nameInput4" placeholder="Enter Name" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500" required>
+                    </div>
+                    <div>
+                        <label for="roleSelect4" class="block text-sm font-medium text-gray-700">Role:</label>
+                        <select id="roleSelect4" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500" required>
+                            <option value="">Select Role</option>
+                            <option value="Executive">Executive</option>
+                            <option value="Chair">Chair</option>
+                            <option value="Delegate">Delegate</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="schoolInput4" class="block text-sm font-medium text-gray-700">School:</label>
+                        <input type="text" id="schoolInput4" placeholder="Enter School" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500" required>
+                    </div>
+                    <div>
+                        <label for="committeeSelect4" class="block text-sm font-medium text-gray-700">Committee:</label>
+                        <select id="committeeSelect4" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500" required>
+                            <option value="">Select Committee</option>
+                            <option value="UNGA">UNGA</option>
+                            <option value="UNEP">UNEP</option>
+                            <option value="UNESCO">UNESCO</option>
+                            <option value="NATO">NATO</option>
+                            <option value="WHO">WHO</option>
+                            <option value="ECOSOC">ECOSOC</option>
+                            <option value="UN WOMEN">UN WOMEN</option>
+                            <option value="Human Rights Council">Human Rights Council</option>
+                            <option value="Security Council">Security Council</option>
+                            <option value="Historical Crisis">Historical Crisis</option>
+                            <option value="Not Applicable">Not Applicable</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="countryInput4" class="block text-sm font-medium text-gray-700">Country:</label>
+                        <input type="text" id="countryInput4" placeholder="Enter Country" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500" required>
+                    </div>
+                </form>
+            </div>
         </div>
 
         <div class="print-button-container">
@@ -355,6 +445,32 @@
                 </div>
                 <div class="badge-footer">PyleaMUN</div>
             </div>
+
+            <!-- Live Preview for Delegate 3 -->
+            <div id="liveBadgePreview3" class="badge-container">
+                <img src="logo.png" alt="PyleaMUN Logo" class="badge-logo">
+                <div class="badge-content">
+                    <div class="badge-name">NAME SURNAME</div>
+                    <div class="badge-role">ROLE</div>
+                    <div class="badge-detail"><span class="badge-detail-label">School:</span> Your School</div>
+                    <div class="badge-detail"><span class="badge-detail-label">Committee:</span> Your Committee</div>
+                    <div class="badge-detail"><span class="badge-detail-label">Country:</span> Your Country</div>
+                </div>
+                <div class="badge-footer">PyleaMUN</div>
+            </div>
+
+            <!-- Live Preview for Delegate 4 -->
+            <div id="liveBadgePreview4" class="badge-container">
+                <img src="logo.png" alt="PyleaMUN Logo" class="badge-logo">
+                <div class="badge-content">
+                    <div class="badge-name">NAME SURNAME</div>
+                    <div class="badge-role">ROLE</div>
+                    <div class="badge-detail"><span class="badge-detail-label">School:</span> Your School</div>
+                    <div class="badge-detail"><span class="badge-detail-label">Committee:</span> Your Committee</div>
+                    <div class="badge-detail"><span class="badge-detail-label">Country:</span> Your Country</div>
+                </div>
+                <div class="badge-footer">PyleaMUN</div>
+            </div>
         </div>
     </div>
 
@@ -373,9 +489,25 @@
         const committeeSelect2 = document.getElementById('committeeSelect2');
         const countryInput2 = document.getElementById('countryInput2');
 
+        // Get references to input elements for Delegate 3
+        const nameInput3 = document.getElementById('nameInput3');
+        const roleSelect3 = document.getElementById('roleSelect3');
+        const schoolInput3 = document.getElementById('schoolInput3');
+        const committeeSelect3 = document.getElementById('committeeSelect3');
+        const countryInput3 = document.getElementById('countryInput3');
+
+        // Get references to input elements for Delegate 4
+        const nameInput4 = document.getElementById('nameInput4');
+        const roleSelect4 = document.getElementById('roleSelect4');
+        const schoolInput4 = document.getElementById('schoolInput4');
+        const committeeSelect4 = document.getElementById('committeeSelect4');
+        const countryInput4 = document.getElementById('countryInput4');
+
         // Get references to live preview badge elements
         const liveBadgePreview1 = document.getElementById('liveBadgePreview1');
         const liveBadgePreview2 = document.getElementById('liveBadgePreview2');
+        const liveBadgePreview3 = document.getElementById('liveBadgePreview3');
+        const liveBadgePreview4 = document.getElementById('liveBadgePreview4');
 
         // Get reference to the main app root container
         const appRoot = document.getElementById('app-root');
@@ -439,16 +571,24 @@
 
         /**
          * Updates a specific live preview badge with provided data.
-         * @param {HTMLElement} previewElement - The specific badge container to update (e.g., liveBadgePreview1).
+         * @param {HTMLElement} previewElement - The specific badge container to update.
          * @param {object} data - The delegate data to display.
          */
         function updateSinglePreview(previewElement, data) {
-            previewElement.querySelector('.badge-name').textContent = data.name || 'NAME SURNAME';
-            previewElement.querySelector('.badge-role').textContent = data.role || 'ROLE';
-            
-            // Get all elements with class 'badge-detail' within the previewElement's content
-            const detailElements = previewElement.querySelectorAll('.badge-content .badge-detail'); 
+            // Ensure previewElement exists before trying to query its children
+            if (!previewElement) {
+                console.error("Preview element not found for updateSinglePreview.");
+                return;
+            }
 
+            // Select elements within the specific previewElement
+            const nameEl = previewElement.querySelector('.badge-name');
+            const roleEl = previewElement.querySelector('.badge-role');
+            const detailElements = previewElement.querySelectorAll('.badge-content .badge-detail');
+
+            if (nameEl) nameEl.textContent = data.name || 'NAME SURNAME';
+            if (roleEl) roleEl.textContent = data.role || 'ROLE';
+            
             // Update content based on their order
             if (detailElements[0]) {
                 detailElements[0].innerHTML = `<span class="badge-detail-label">School:</span> ${data.school || 'Your School'}`;
@@ -462,7 +602,7 @@
         }
 
         /**
-         * Gathers data for both delegates and updates their respective live previews.
+         * Gathers data for all four delegates and updates their respective live previews.
          */
         function updateAllLivePreviews() {
             const delegate1Data = {
@@ -479,16 +619,33 @@
                 committee: committeeSelect2.value,
                 country: countryInput2.value
             };
+            const delegate3Data = {
+                name: nameInput3.value,
+                role: roleSelect3.value,
+                school: schoolInput3.value,
+                committee: committeeSelect3.value,
+                country: countryInput3.value
+            };
+            const delegate4Data = {
+                name: nameInput4.value,
+                role: roleSelect4.value,
+                school: schoolInput4.value,
+                committee: committeeSelect4.value,
+                country: countryInput4.value
+            };
+
             updateSinglePreview(liveBadgePreview1, delegate1Data);
             updateSinglePreview(liveBadgePreview2, delegate2Data);
+            updateSinglePreview(liveBadgePreview3, delegate3Data);
+            updateSinglePreview(liveBadgePreview4, delegate4Data);
         }
 
         /**
-         * Gathers data for both delegates, generates 4 badges, and triggers the print dialog.
-         * This version directly manipulates the DOM for more reliable printing.
+         * Gathers data for all four delegates, generates one badge for each,
+         * and triggers the print dialog by temporarily manipulating the DOM.
          */
         function printAllBadges() {
-            // Get data for both delegates
+            // Get data for all four delegates
             const delegate1Data = {
                 name: nameInput1.value,
                 role: roleSelect1.value,
@@ -503,20 +660,32 @@
                 committee: committeeSelect2.value,
                 country: countryInput2.value
             };
+            const delegate3Data = {
+                name: nameInput3.value,
+                role: roleSelect3.value,
+                school: schoolInput3.value,
+                committee: committeeSelect3.value,
+                country: countryInput3.value
+            };
+            const delegate4Data = {
+                name: nameInput4.value,
+                role: roleSelect4.value,
+                school: schoolInput4.value,
+                committee: committeeSelect4.value,
+                country: countryInput4.value
+            };
 
             // Create a temporary container for printing
             const printRoot = document.createElement('div');
             printRoot.id = 'print-root'; // Assign ID for print CSS to target
 
-            // Add 2 badges for Delegate 1
+            // Add one badge for each of the four delegates
             printRoot.appendChild(createBadgeElement(delegate1Data));
-            printRoot.appendChild(createBadgeElement(delegate1Data));
-
-            // Add 2 badges for Delegate 2
             printRoot.appendChild(createBadgeElement(delegate2Data));
-            printRoot.appendChild(createBadgeElement(delegate2Data));
+            printRoot.appendChild(createBadgeElement(delegate3Data));
+            printRoot.appendChild(createBadgeElement(delegate4Data));
 
-            // Store the original body content
+            // Store the original body content and classes
             const originalBodyContent = appRoot.innerHTML;
             const originalBodyClasses = document.body.className;
 
@@ -529,14 +698,13 @@
             window.print();
 
             // Restore the original body content after a short delay
-            // This allows the browser's print dialog to fully process before DOM is reverted
             setTimeout(() => {
                 document.body.innerHTML = originalBodyContent;
                 document.body.className = originalBodyClasses;
                 // Re-attach event listeners and update previews, as DOM elements were recreated
                 attachEventListeners();
                 updateAllLivePreviews();
-            }, 500); // 500ms delay
+            }, 500); // 500ms delay to ensure print dialog processes
         }
 
         /**
@@ -555,6 +723,18 @@
             schoolInput2.addEventListener('input', updateAllLivePreviews);
             committeeSelect2.addEventListener('change', updateAllLivePreviews);
             countryInput2.addEventListener('input', updateAllLivePreviews);
+
+            nameInput3.addEventListener('input', updateAllLivePreviews);
+            roleSelect3.addEventListener('change', updateAllLivePreviews);
+            schoolInput3.addEventListener('input', updateAllLivePreviews);
+            committeeSelect3.addEventListener('change', updateAllLivePreviews);
+            countryInput3.addEventListener('input', updateAllLivePreviews);
+
+            nameInput4.addEventListener('input', updateAllLivePreviews);
+            roleSelect4.addEventListener('change', updateAllLivePreviews);
+            schoolInput4.addEventListener('input', updateAllLivePreviews);
+            committeeSelect4.addEventListener('change', updateAllLivePreviews);
+            countryInput4.addEventListener('input', updateAllLivePreviews);
         }
 
         // Initial setup when the page loads
