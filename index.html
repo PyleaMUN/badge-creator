@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PyleaMUN ID Badge Creator</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts - Comfortaa -->
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Custom CSS for badge dimensions and screen layout */
+        body {
+            font-family: 'Comfortaa', cursive;
+            background-color: #f0f0f0; /* Light gray background */
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* Align to top for better scrolling */
+            min-height: 100vh;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        /* Container for the entire application (forms + previews + print button) */
+        .app-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            max-width: 1200px; /* Increased max width for two forms/previews */
+            width: 100%;
+            align-items: center;
+        }
+
+        /* Input Forms Container */
+        .input-forms-wrapper {
+            display: flex;
+            flex-wrap: wrap; /* Allow forms to wrap on smaller screens */
+            gap: 20px;
+            width: 100%;
+            justify-content: center;
+        }
+
+        /* Input Form Styling */
+        .input-form {
+            background-color: #ffffff;
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 450px; /* Slightly smaller to fit two side-by-side */
+            flex: 1 1 auto; /* Allow forms to grow and shrink */
+            min-width: 300px; /* Minimum width before wrapping */
+        }
+
+        .input-form h3 {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #008080; /* Teal */
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .input-form label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .input-form input,
+        .input-form select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 16px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        .print-button-container {
+            width: 100%;
+            max-width: 920px; /* Match combined width of two forms */
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .print-button {
+            background-color: #008080; /* Teal */
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+            width: 100%;
+            max-width: 400px; /* Limit button width */
+        }
+
+        .print-button:hover {
+            background-color: #006666; /* Darker teal */
+        }
+
+        /* Live Previews Container */
+        .live-previews-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            width: 100%;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        /* Badge Container Styling */
+        .badge-container {
+            width: 9.30cm; /* Specified width */
+            height: 13cm; /* Specified height */
+            background-color: #ffffff; /* White background for the badge itself */
+            border: 2px solid #008080; /* Teal border (frame) */
+            border-radius: 15px; /* Rounded corners */
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between; /* Distribute space */
+            align-items: center;
+            padding: 15px;
+            box-sizing: border-box;
+            overflow: hidden; /* Ensure content stays within bounds */
+            position: relative; /* For absolute positioning of elements */
+        }
+
+        /* Logo Styling - Slightly Bigger */
+        .badge-logo {
+            width: 70px; /* Increased width */
+            height: 70px; /* Increased height */
+            object-fit: contain;
+            position: absolute;
+            top: 15px;
+            left: 15px;
+        }
+
+        /* Badge Content Styling - Adjusted padding-top for larger logo */
+        .badge-content {
+            text-align: center;
+            width: 100%;
+            flex-grow: 1; /* Allows content to take available space */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 5px; /* Space between text lines */
+            padding-top: 80px; /* Make more space for the larger logo */
+        }
+
+        .badge-name {
+            font-size: 2.2em; /* Larger for name */
+            font-weight: 700; /* Bold */
+            color: #008080; /* Teal */
+            margin-bottom: 5px;
+            line-height: 1.1;
+        }
+
+        .badge-role {
+            font-size: 1.4em;
+            font-weight: 700;
+            color: #DAA520; /* Gold */
+            margin-bottom: 10px;
+            line-height: 1.1;
+        }
+
+        .badge-detail {
+            font-size: 1.1em;
+            color: #333; /* Dark gray for details */
+            line-height: 1.2;
+        }
+
+        .badge-detail-label {
+            font-weight: 700;
+            color: #008080; /* Teal for labels */
+        }
+
+        /* PyleaMUN Footer */
+        .badge-footer {
+            font-size: 1.3em;
+            font-weight: 700;
+            color: #008080; /* Teal */
+            margin-top: 10px;
+            text-transform: uppercase;
+        }
+
+        /* Print Specific Styles - Only for the print container */
+        @media print {
+            body {
+                background-color: #ffffff !important; /* White background for print */
+                margin: 0;
+                padding: 0;
+                display: block; /* Ensure body is block for print layout */
+                overflow: hidden; /* Prevent scrollbars in print */
+            }
+
+            /* This ID will be dynamically added to the body during print */
+            #print-root {
+                display: grid; /* Use grid for precise layout on A4 */
+                grid-template-columns: repeat(2, 1fr); /* Two columns */
+                grid-template-rows: repeat(2, 1fr); /* Two rows */
+                gap: 1cm; /* Space between badges */
+                width: 21cm; /* A4 width */
+                height: 29.7cm; /* A4 height */
+                margin: 0 auto; /* Center on page */
+                padding: 1cm; /* Padding from edges of A4 */
+                box-sizing: border-box;
+                align-items: center; /* Center badges within their grid cells */
+                justify-items: center;
+                page-break-after: avoid; /* Prevent page breaks within the grid */
+                overflow: hidden; /* Ensure badges don't overflow print area */
+            }
+
+            #print-root .badge-container {
+                /* Ensure badge dimensions are maintained and frame is visible for print */
+                width: 9.30cm;
+                height: 13cm;
+                border: 2px solid #008080; /* Keep the frame for printing */
+                box-shadow: none; /* No shadow on print */
+                margin: 0; /* Remove any external margins */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="app-root" class="app-container">
+        <h2 class="text-3xl font-bold text-center text-teal-700 mb-6">PyleaMUN ID Badge Creator</h2>
+
+        <div class="input-forms-wrapper">
+            <!-- Input Form for Delegate 1 -->
+            <div class="input-form">
+                <h3>Delegate 1 Details</h3>
+                <form id="badgeForm1" class="space-y-4">
+                    <div>
+                        <label for="nameInput1" class="block text-sm font-medium text-gray-700">Name:</label>
+                        <input type="text" id="nameInput1" placeholder="Enter Name" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500" required>
+                    </div>
+                    <div>
+                        <label for="roleSelect1" class="block text-sm font-medium text-gray-700">Role:</label>
+                        <select id="roleSelect1" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500" required>
+                            <option value="">Select Role</option>
+                            <option value="Executive">Executive</option>
+                            <option value="Chair">Chair</option>
+                            <option value="Delegate">Delegate</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="schoolInput1" class="block text-sm font-medium text-gray-700">School:</label>
+                        <input type="text" id="schoolInput1" placeholder="Enter School" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500" required>
+                    </div>
+                    <div>
+                        <label for="committeeSelect1" class="block text-sm font-medium text-gray-700">Committee:</label>
+                        <select id="committeeSelect1" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500" required>
+                            <option value="">Select Committee</option>
+                            <option value="UNGA">UNGA</option>
+                            <option value="UNEP">UNEP</option>
+                            <option value="UNESCO">UNESCO</option>
+                            <option value="NATO">NATO</option>
+                            <option value="WHO">WHO</option>
+                            <option value="ECOSOC">ECOSOC</option>
+                            <option value="UN WOMEN">UN WOMEN</option>
+                            <option value="Human Rights Council">Human Rights Council</option>
+                            <option value="Security Council">Security Council</option>
+                            <option value="Historical Crisis">Historical Crisis</option>
+                            <option value="Not Applicable">Not Applicable</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="countryInput1" class="block text-sm font-medium text-gray-700">Country:</label>
+                        <input type="text" id="countryInput1" placeholder="Enter Country" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500" required>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Input Form for Delegate 2 -->
+            <div class="input-form">
+                <h3>Delegate 2 Details</h3>
+                <form id="badgeForm2" class="space-y-4">
+                    <div>
+                        <label for="nameInput2" class="block text-sm font-medium text-gray-700">Name:</label>
+                        <input type="text" id="nameInput2" placeholder="Enter Name" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500" required>
+                    </div>
+                    <div>
+                        <label for="roleSelect2" class="block text-sm font-medium text-gray-700">Role:</label>
+                        <select id="roleSelect2" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500" required>
+                            <option value="">Select Role</option>
+                            <option value="Executive">Executive</option>
+                            <option value="Chair">Chair</option>
+                            <option value="Delegate">Delegate</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="schoolInput2" class="block text-sm font-medium text-gray-700">School:</label>
+                        <input type="text" id="schoolInput2" placeholder="Enter School" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500" required>
+                    </div>
+                    <div>
+                        <label for="committeeSelect2" class="block text-sm font-medium text-gray-700">Committee:</label>
+                        <select id="committeeSelect2" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500" required>
+                            <option value="">Select Committee</option>
+                            <option value="UNGA">UNGA</option>
+                            <option value="UNEP">UNEP</option>
+                            <option value="UNESCO">UNESCO</option>
+                            <option value="NATO">NATO</option>
+                            <option value="WHO">WHO</option>
+                            <option value="ECOSOC">ECOSOC</option>
+                            <option value="UN WOMEN">UN WOMEN</option>
+                            <option value="Human Rights Council">Human Rights Council</option>
+                            <option value="Security Council">Security Council</option>
+                            <option value="Historical Crisis">Historical Crisis</option>
+                            <option value="Not Applicable">Not Applicable</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="countryInput2" class="block text-sm font-medium text-gray-700">Country:</label>
+                        <input type="text" id="countryInput2" placeholder="Enter Country" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring-teal-500" required>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="print-button-container">
+            <button type="button" onclick="printAllBadges()">Print 4 Badges (Save as PDF)</button>
+        </div>
+
+        <!-- Live Previews Section -->
+        <h3 class="text-2xl font-bold text-center text-teal-700 mt-8 mb-4">Live Previews</h3>
+        <div class="live-previews-wrapper">
+            <!-- Live Preview for Delegate 1 -->
+            <div id="liveBadgePreview1" class="badge-container">
+                <img src="logo.png" alt="PyleaMUN Logo" class="badge-logo">
+                <div class="badge-content">
+                    <div class="badge-name">NAME SURNAME</div>
+                    <div class="badge-role">ROLE</div>
+                    <div class="badge-detail"><span class="badge-detail-label">School:</span> Your School</div>
+                    <div class="badge-detail"><span class="badge-detail-label">Committee:</span> Your Committee</div>
+                    <div class="badge-detail"><span class="badge-detail-label">Country:</span> Your Country</div>
+                </div>
+                <div class="badge-footer">PyleaMUN</div>
+            </div>
+
+            <!-- Live Preview for Delegate 2 -->
+            <div id="liveBadgePreview2" class="badge-container">
+                <img src="logo.png" alt="PyleaMUN Logo" class="badge-logo">
+                <div class="badge-content">
+                    <div class="badge-name">NAME SURNAME</div>
+                    <div class="badge-role">ROLE</div>
+                    <div class="badge-detail"><span class="badge-detail-label">School:</span> Your School</div>
+                    <div class="badge-detail"><span class="badge-detail-label">Committee:</span> Your Committee</div>
+                    <div class="badge-detail"><span class="badge-detail-label">Country:</span> Your Country</div>
+                </div>
+                <div class="badge-footer">PyleaMUN</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Get references to input elements for Delegate 1
+        const nameInput1 = document.getElementById('nameInput1');
+        const roleSelect1 = document.getElementById('roleSelect1');
+        const schoolInput1 = document.getElementById('schoolInput1');
+        const committeeSelect1 = document.getElementById('committeeSelect1');
+        const countryInput1 = document.getElementById('countryInput1');
+
+        // Get references to input elements for Delegate 2
+        const nameInput2 = document.getElementById('nameInput2');
+        const roleSelect2 = document.getElementById('roleSelect2');
+        const schoolInput2 = document.getElementById('schoolInput2');
+        const committeeSelect2 = document.getElementById('committeeSelect2');
+        const countryInput2 = document.getElementById('countryInput2');
+
+        // Get references to live preview badge elements
+        const liveBadgePreview1 = document.getElementById('liveBadgePreview1');
+        const liveBadgePreview2 = document.getElementById('liveBadgePreview2');
+
+        // Get reference to the main app root container
+        const appRoot = document.getElementById('app-root');
+
+        /**
+         * Creates an HTML badge element based on provided delegate data.
+         * This function is used for both live previews and print generation.
+         * @param {object} data - An object containing delegate details (name, role, school, committee, country).
+         * @returns {HTMLElement} The constructed badge div element.
+         */
+        function createBadgeElement(data) {
+            const badgeDiv = document.createElement('div');
+            badgeDiv.className = 'badge-container'; // Reuses existing badge styles
+
+            // Logo
+            const logoImg = document.createElement('img');
+            logoImg.src = 'logo.png';
+            logoImg.alt = 'PyleaMUN Logo';
+            logoImg.className = 'badge-logo';
+            badgeDiv.appendChild(logoImg);
+
+            // Content
+            const contentDiv = document.createElement('div');
+            contentDiv.className = 'badge-content';
+
+            const nameDiv = document.createElement('div');
+            nameDiv.className = 'badge-name';
+            nameDiv.textContent = data.name || 'NAME SURNAME';
+            contentDiv.appendChild(nameDiv);
+
+            const roleDiv = document.createElement('div');
+            roleDiv.className = 'badge-role';
+            roleDiv.textContent = data.role || 'ROLE';
+            contentDiv.appendChild(roleDiv);
+
+            const schoolDiv = document.createElement('div');
+            schoolDiv.className = 'badge-detail';
+            schoolDiv.innerHTML = `<span class="badge-detail-label">School:</span> ${data.school || 'Your School'}`;
+            contentDiv.appendChild(schoolDiv);
+
+            const committeeDiv = document.createElement('div');
+            committeeDiv.className = 'badge-detail';
+            committeeDiv.innerHTML = `<span class="badge-detail-label">Committee:</span> ${data.committee || 'Your Committee'}`;
+            contentDiv.appendChild(committeeDiv);
+
+            const countryDiv = document.createElement('div');
+            countryDiv.className = 'badge-detail';
+            countryDiv.innerHTML = `<span class="badge-detail-label">Country:</span> ${data.country || 'Your Country'}`;
+            contentDiv.appendChild(countryDiv);
+
+            badgeDiv.appendChild(contentDiv);
+
+            // Footer
+            const footerDiv = document.createElement('div');
+            footerDiv.className = 'badge-footer';
+            footerDiv.textContent = 'PyleaMUN';
+            badgeDiv.appendChild(footerDiv);
+
+            return badgeDiv;
+        }
+
+        /**
+         * Updates a specific live preview badge with provided data.
+         * @param {HTMLElement} previewElement - The specific badge container to update (e.g., liveBadgePreview1).
+         * @param {object} data - The delegate data to display.
+         */
+        function updateSinglePreview(previewElement, data) {
+            previewElement.querySelector('.badge-name').textContent = data.name || 'NAME SURNAME';
+            previewElement.querySelector('.badge-role').textContent = data.role || 'ROLE';
+            
+            // Get all elements with class 'badge-detail' within the previewElement's content
+            const detailElements = previewElement.querySelectorAll('.badge-content .badge-detail'); 
+
+            // Update content based on their order
+            if (detailElements[0]) {
+                detailElements[0].innerHTML = `<span class="badge-detail-label">School:</span> ${data.school || 'Your School'}`;
+            }
+            if (detailElements[1]) {
+                detailElements[1].innerHTML = `<span class="badge-detail-label">Committee:</span> ${data.committee || 'Your Committee'}`;
+            }
+            if (detailElements[2]) {
+                detailElements[2].innerHTML = `<span class="badge-detail-label">Country:</span> ${data.country || 'Your Country'}`;
+            }
+        }
+
+        /**
+         * Gathers data for both delegates and updates their respective live previews.
+         */
+        function updateAllLivePreviews() {
+            const delegate1Data = {
+                name: nameInput1.value,
+                role: roleSelect1.value,
+                school: schoolInput1.value,
+                committee: committeeSelect1.value,
+                country: countryInput1.value
+            };
+            const delegate2Data = {
+                name: nameInput2.value,
+                role: roleSelect2.value,
+                school: schoolInput2.value,
+                committee: committeeSelect2.value,
+                country: countryInput2.value
+            };
+            updateSinglePreview(liveBadgePreview1, delegate1Data);
+            updateSinglePreview(liveBadgePreview2, delegate2Data);
+        }
+
+        /**
+         * Gathers data for both delegates, generates 4 badges, and triggers the print dialog.
+         * This version directly manipulates the DOM for more reliable printing.
+         */
+        function printAllBadges() {
+            // Get data for both delegates
+            const delegate1Data = {
+                name: nameInput1.value,
+                role: roleSelect1.value,
+                school: schoolInput1.value,
+                committee: committeeSelect1.value,
+                country: countryInput1.value
+            };
+            const delegate2Data = {
+                name: nameInput2.value,
+                role: roleSelect2.value,
+                school: schoolInput2.value,
+                committee: committeeSelect2.value,
+                country: countryInput2.value
+            };
+
+            // Create a temporary container for printing
+            const printRoot = document.createElement('div');
+            printRoot.id = 'print-root'; // Assign ID for print CSS to target
+
+            // Add 2 badges for Delegate 1
+            printRoot.appendChild(createBadgeElement(delegate1Data));
+            printRoot.appendChild(createBadgeElement(delegate1Data));
+
+            // Add 2 badges for Delegate 2
+            printRoot.appendChild(createBadgeElement(delegate2Data));
+            printRoot.appendChild(createBadgeElement(delegate2Data));
+
+            // Store the original body content
+            const originalBodyContent = appRoot.innerHTML;
+            const originalBodyClasses = document.body.className;
+
+            // Clear the body and append only the print content
+            document.body.innerHTML = '';
+            document.body.appendChild(printRoot);
+            document.body.className = ''; // Clear body classes that might interfere with print
+
+            // Trigger print dialog
+            window.print();
+
+            // Restore the original body content after a short delay
+            // This allows the browser's print dialog to fully process before DOM is reverted
+            setTimeout(() => {
+                document.body.innerHTML = originalBodyContent;
+                document.body.className = originalBodyClasses;
+                // Re-attach event listeners and update previews, as DOM elements were recreated
+                attachEventListeners();
+                updateAllLivePreviews();
+            }, 500); // 500ms delay
+        }
+
+        /**
+         * Attaches all necessary event listeners.
+         * Called on initial load and after print (when DOM is restored).
+         */
+        function attachEventListeners() {
+            nameInput1.addEventListener('input', updateAllLivePreviews);
+            roleSelect1.addEventListener('change', updateAllLivePreviews);
+            schoolInput1.addEventListener('input', updateAllLivePreviews);
+            committeeSelect1.addEventListener('change', updateAllLivePreviews);
+            countryInput1.addEventListener('input', updateAllLivePreviews);
+
+            nameInput2.addEventListener('input', updateAllLivePreviews);
+            roleSelect2.addEventListener('change', updateAllLivePreviews);
+            schoolInput2.addEventListener('input', updateAllLivePreviews);
+            committeeSelect2.addEventListener('change', updateAllLivePreviews);
+            countryInput2.addEventListener('input', updateAllLivePreviews);
+        }
+
+        // Initial setup when the page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            attachEventListeners(); // Attach listeners for the first time
+            updateAllLivePreviews(); // Initial update of previews
+        });
+
+        // Note about logo.png:
+        // The image source is set to "logo.png".
+        // For the badge to display your logo, you need to ensure that
+        // a file named 'logo.png' is in the same directory as this HTML file
+        // when you use it locally. If it's not found, the browser will show
+        // its default broken image icon.
+    </script>
+</body>
+</html>
