@@ -159,11 +159,6 @@
             font-weight: normal;
         }
 
-        .badge-detail-label {
-            font-weight: 700;
-            color: #008080;
-        }
-
         .badge-footer {
             font-size: 1.2em;
             font-weight: 700;
@@ -435,9 +430,9 @@
                 <div class="badge-content">
                     <div class="badge-name">NAME SURNAME</div>
                     <div class="badge-role">ROLE</div>
-                    <div class="badge-detail"><span class="badge-detail-label">School:</span> <span id="badgeSchoolValue1">Your School</span></div>
-                    <div class="badge-committee-line"><span class="badge-detail-label">Committee:</span> <span class="committee-value" id="badgeCommitteeValue1">Your Committee</span></div>
-                    <div class="badge-detail"><span class="badge-detail-label">Country:</span> <span id="badgeCountryValue1">Your Country</span></div>
+                    <div class="badge-detail"><span id="badgeSchoolValue1">Your School</span></div>
+                    <div class="badge-committee-line"><span class="committee-value" id="badgeCommitteeValue1">Your Committee</span></div>
+                    <div class="badge-detail"><span id="badgeCountryValue1">Your Country</span></div>
                 </div>
                 <div class="badge-footer">PyleaMUN</div>
             </div>
@@ -449,9 +444,9 @@
                 <div class="badge-content">
                     <div class="badge-name">NAME SURNAME</div>
                     <div class="badge-role">ROLE</div>
-                    <div class="badge-detail"><span class="badge-detail-label">School:</span> <span id="badgeSchoolValue2">Your School</span></div>
-                    <div class="badge-committee-line"><span class="badge-detail-label">Committee:</span> <span class="committee-value" id="badgeCommitteeValue2">Your Committee</span></div>
-                    <div class="badge-detail"><span class="badge-detail-label">Country:</span> <span id="badgeCountryValue2">Your Country</span></div>
+                    <div class="badge-detail"><span id="badgeSchoolValue2">Your School</span></div>
+                    <div class="badge-committee-line"><span class="committee-value" id="badgeCommitteeValue2">Your Committee</span></div>
+                    <div class="badge-detail"><span id="badgeCountryValue2">Your Country</span></div>
                 </div>
                 <div class="badge-footer">PyleaMUN</div>
             </div>
@@ -463,9 +458,9 @@
                 <div class="badge-content">
                     <div class="badge-name">NAME SURNAME</div>
                     <div class="badge-role">ROLE</div>
-                    <div class="badge-detail"><span class="badge-detail-label">School:</span> <span id="badgeSchoolValue3">Your School</span></div>
-                    <div class="badge-committee-line"><span class="badge-detail-label">Committee:</span> <span class="committee-value" id="badgeCommitteeValue3">Your Committee</span></div>
-                    <div class="badge-detail"><span class="badge-detail-label">Country:</span> <span id="badgeCountryValue3">Your Country</span></div>
+                    <div class="badge-detail"><span id="badgeSchoolValue3">Your School</span></div>
+                    <div class="badge-committee-line"><span class="committee-value" id="badgeCommitteeValue3">Your Committee</span></div>
+                    <div class="badge-detail"><span id="badgeCountryValue3">Your Country</span></div>
                 </div>
                 <div class="badge-footer">PyleaMUN</div>
             </div>
@@ -477,9 +472,9 @@
                 <div class="badge-content">
                     <div class="badge-name">NAME SURNAME</div>
                     <div class="badge-role">ROLE</div>
-                    <div class="badge-detail"><span class="badge-detail-label">School:</span> <span id="badgeSchoolValue4">Your School</span></div>
-                    <div class="badge-committee-line"><span class="badge-detail-label">Committee:</span> <span class="committee-value" id="badgeCommitteeValue4">Your Committee</span></div>
-                    <div class="badge-detail"><span class="badge-detail-label">Country:</span> <span id="badgeCountryValue4">Your Country</span></div>
+                    <div class="badge-detail"><span id="badgeSchoolValue4">Your School</span></div>
+                    <div class="badge-committee-line"><span class="committee-value" id="badgeCommitteeValue4">Your Committee</span></div>
+                    <div class="badge-detail"><span id="badgeCountryValue4">Your Country</span></div>
                 </div>
                 <div class="badge-footer">PyleaMUN</div>
             </div>
@@ -524,9 +519,9 @@
                 <div class="badge-content">
                     <div class="badge-name">${data.name || 'NAME SURNAME'}</div>
                     <div class="badge-role">${data.role || 'ROLE'}</div>
-                    <div class="badge-detail"><span class="badge-detail-label">School:</span> <span>${data.school || 'Your School'}</span></div>
-                    <div class="badge-committee-line"><span class="badge-detail-label">Committee:</span> <span class="committee-value">${data.committee || 'Your Committee'}</span></div>
-                    <div class="badge-detail"><span class="badge-detail-label">Country:</span> <span>${data.country || 'Your Country'}</span></div>
+                    <div class="badge-detail">${data.school || 'Your School'}</div>
+                    <div class="badge-committee-line"><span class="committee-value">${data.committee || 'Your Committee'}</span></div>
+                    <div class="badge-detail">${data.country || 'Your Country'}</div>
                 </div>
                 <div class="badge-footer">PyleaMUN</div>
             `;
@@ -540,7 +535,7 @@
             const printRoot = document.createElement('div');
             printRoot.id = 'print-root';
             
-            // Add all badges
+            // Add all badges with current values
             for (let i = 1; i <= 4; i++) {
                 const data = {
                     name: inputs[i].name.value,
@@ -549,7 +544,17 @@
                     committee: inputs[i].committee.value,
                     country: inputs[i].country.value
                 };
-                printRoot.appendChild(createBadgeElement(data));
+                
+                // Only add badge if name is filled (basic validation)
+                if (data.name) {
+                    printRoot.appendChild(createBadgeElement(data));
+                }
+            }
+            
+            // If no badges to print (all names empty), show alert
+            if (printRoot.children.length === 0) {
+                alert('Please fill in at least one delegate name before printing.');
+                return;
             }
             
             // Prepare for printing
@@ -567,6 +572,30 @@
                 body {
                     margin: 0 !important;
                     padding: 0 !important;
+                }
+                #print-root {
+                    display: grid;
+                    grid-template-columns: repeat(2, 1fr);
+                    grid-template-rows: repeat(2, 1fr);
+                    grid-column-gap: 0.8cm;
+                    grid-row-gap: 0.6cm;
+                    padding: 0.6cm 1cm !important;
+                    width: 21cm;
+                    height: 29.7cm;
+                    margin: 0 auto !important;
+                    box-sizing: border-box;
+                    align-items: center;
+                    justify-items: center;
+                    page-break-after: avoid;
+                }
+                #print-root .badge-container {
+                    width: 9.2cm;
+                    height: 13.2cm;
+                    margin: 0 !important;
+                    padding: 10px;
+                }
+                #print-root .badge-committee-line .committee-value {
+                    font-weight: 700 !important;
                 }
             `;
             document.head.appendChild(style);
